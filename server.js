@@ -10,16 +10,16 @@ const fs = require("fs");
 require("dotenv").config();
 const morgan = require("morgan");
 const templateRoutes = require("./routes/templateRoutes.js");
-const { buildEmailHTML } = require("./utils/buildEmailHTML");
+const { buildEmailHTML } = require("./utils/buildEmailHTML.js");
 const { createAndSendCampaign } = require("./controller/sendCampaignController.js");
 
 
-const authRoutes = require("./routes/auth");
-const { authMiddleware, adminMiddleware } = require("./middleware/auth");
+const authRoutes = require("./routes/auth.js");
+const { authMiddleware, adminMiddleware } = require("./middleware/auth.js");
 
 const User = require("./models/User");
-const Campaign = require("./models/Campaign");
-const Notification = require("./models/Notification");
+const Campaign = require("./models/Campaign.js");
+const Notification = require("./models/Notification.js");
 
 // ✅ Brevo setup
 const SibApiV3Sdk = require("@sendinblue/client");
@@ -37,18 +37,18 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ✅ Ensure uploads folder exists
-const uploadDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
+// const uploadDir = path.join(__dirname, "uploads");
+// if (!fs.existsSync(uploadDir)) {
+//   fs.mkdirSync(uploadDir);
+// }
 
-// ✅ File upload setup (Multer)
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) =>
-    cb(null, Date.now() + path.extname(file.originalname)),
-});
-const upload = multer({ storage });
+// // ✅ File upload setup (Multer)
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => cb(null, uploadDir),
+//   filename: (req, file, cb) =>
+//     cb(null, Date.now() + path.extname(file.originalname)),
+// });
+// const upload = multer({ storage });
 
 // ✅ Socket.io setup
 const server = http.createServer(app);

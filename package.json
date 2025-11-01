@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +12,7 @@
   "type": "commonjs",
   "description": "",
   "dependencies": {
+    "@getbrevo/brevo": "^3.0.1",
     "@sendinblue/client": "^3.3.1",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
@@ -26,6 +26,7 @@
     "multer": "^2.0.2",
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.6",
+    "react": "^19.2.0",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {

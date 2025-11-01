@@ -1,9 +1,16 @@
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const os = require("os");
 
 // Ensure upload directory exists
-const uploadDir = path.join(process.cwd(), "uploads");
+// const uploadDir = path.join(process.cwd(), "uploads");
+// if (!fs.existsSync(uploadDir)) {
+//   fs.mkdirSync(uploadDir);
+// }
+
+const uploadDir = path.join(os.tmpdir(), 'uploads');
+
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
@@ -14,8 +21,8 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    const filename = Date.now() + "-" + Math.round(Math.random() * 1e9) + ext;
+    // const ext = path.extname(file.originalname);
+    const filename = Date.now() + "-" + file.originalname;
     cb(null, filename);
   },
 });

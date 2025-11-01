@@ -1,5 +1,5 @@
 // controllers/webhookController.js
-const Campaign = require('../models/campaign');
+const Campaign = require('../models/Campaign.js');
 
 exports.brevoWebhook = async (req, res) => {
   const events = req.body; // array of events from Brevo

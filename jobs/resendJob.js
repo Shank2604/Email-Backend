@@ -1,8 +1,8 @@
 // jobs/resendNotOpened.js
 import cron from 'node-cron';
-import Recipient from '../models/Recipient';
+import Recipient from '../models/Recipient.js';
 import { sendBatchTransactional } from '../lib/brevo';
-import Campaign from '../models/Campaign';
+import Campaign from '../models/Campaign.js';
 
 cron.schedule('0 * * * *', async () => { // every hour (adjust as needed)
   const now = new Date();
