@@ -1,7 +1,6 @@
 const SibApiV3Sdk = require("@getbrevo/brevo");
 const Campaign = require("../models/Campaign");
 const { buildEmailHTML } = require("../utils/buildEmailHTML"); // see earlier
-const brevoClient = new SibApiV3Sdk.TransactionalEmailsApi();
 /*
 // brevoClient.setApiKey(
 //   SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey,
@@ -9,8 +8,11 @@ const brevoClient = new SibApiV3Sdk.TransactionalEmailsApi();
 // );
 */
 
+const brevoClient = SibApiV3Sdk.ApiClient.instance;
 const brevo_api_key = brevoClient.authentications['api-key'];
 brevo_api_key.apiKey = process.env.BREVO_API_KEY;
+
+const brevoInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
 exports.createAndSendCampaign = async (req, res) => {
   try {
@@ -81,7 +83,7 @@ exports.createAndSendCampaign = async (req, res) => {
     // Send emails via Brevo
     for (const email of recipientList) {
       try {
-        await brevoClient.sendTransacEmail({
+        await brevoInstance.sendTransacEmail({
           sender: { name: "TheBanarasShow", email: process.env.BREVO_FROM },
           to: [{ email }],
           subject,
