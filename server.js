@@ -13,6 +13,7 @@ const templateRoutes = require("./routes/templateRoutes.js");
 const { buildEmailHTML } = require("./utils/buildEmailHTML.js");
 const { createAndSendCampaign } = require("./controller/sendCampaignController.js");
 const upload = require("./middleware/uploadMiddleware.js");
+const serverless = require("serverless-http");
 
 
 const authRoutes = require("./routes/auth.js");
@@ -178,3 +179,5 @@ mongoose
     );
   })
   .catch((err) => console.error(err));
+
+module.exports.handler = serverless(app);
