@@ -2,7 +2,7 @@
 const Campaign = require("../models/Campaign");
 const Notification = require("../models/Notification");
 const { buildEmailHTML } = require("../utils/buildEmailHTML");
-const SibApiV3Sdk = require("@getbrevo/brevo");
+const SibApiV3Sdk = require("sib-api-v3-sdk").default;
 
 
 // const SibApiV3Sdk = require("@sendinblue/client");
@@ -16,11 +16,16 @@ brevoClient.setApiKey(
 );
 */
 
-const brevoClient = SibApiV3Sdk.ApiClient.instance;
-const brevo_api_key = brevoClient.authentications['api-key'];
-brevo_api_key.apiKey = process.env.BREVO_API_KEY;
+try{
+  const brevoClient = SibApiV3Sdk.ApiClient.instance;
+  const brevo_api_key = brevoClient.authentications['api-key'];
+  brevo_api_key.apiKey = process.env.BREVO_API_KEY;
 
-const brevoInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  const brevoInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  console.log("Brevo client configured successfully!");
+}catch(err){
+  console.error("Error configuring Brevo client:", err);
+}
 
 exports.createAndSendCampaign = async (req, res, io) => {
   try {

@@ -22,12 +22,26 @@ const Campaign = require("./models/Campaign.js");
 const Notification = require("./models/Notification.js");
 
 // ✅ Brevo setup
-const SibApiV3Sdk = require("@sendinblue/client");
-const brevoClient = new SibApiV3Sdk.TransactionalEmailsApi();
-brevoClient.setApiKey(
-  SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey,
-  process.env.BREVO_API_KEY
-);
+// const SibApiV3Sdk = require("@sendinblue/client");
+// const brevoClient = new SibApiV3Sdk.TransactionalEmailsApi();
+// brevoClient.setApiKey(
+//   SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey,
+//   process.env.BREVO_API_KEY
+// );
+const SibApiV3Sdk = require("sib-api-v3-sdk").default;
+
+try{
+  const brevoClient = SibApiV3Sdk.ApiClient.instance;
+  const brevo_api_key = brevoClient.authentications['api-key'];
+  brevo_api_key.apiKey = process.env.BREVO_API_KEY;
+
+  const brevoInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+  console.log("Brevo client configured successfully!");
+}catch(err){
+  console.error("Error configuring Brevo client:", err);
+}
+
+
 
 const app = express();
 app.use(cors());
@@ -128,7 +142,7 @@ cron.schedule("0 * * * *", async () => {
         parseInt(process.env.RESEND_GAP_HOURS || "24", 10) * 60 * 60 * 1000;
       if (!status.opened && new Date() - status.lastSent > resendGap) {
         try {
-          await brevoClient.sendTransacEmail({
+          await brevoInstance.sendTransacEmail({
             sender: { name: "TheBanarasShow", email: process.env.BREVO_FROM },
             to: [{ email: status.email }],
             subject: campaign.subject,

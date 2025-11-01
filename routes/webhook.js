@@ -1,7 +1,7 @@
 // routes/webhook.js
 import express from 'express';
-import Recipient from '../models/Recipient';
-import EventLog from '../models/EventLog';
+import Recipient from '../models/Recipient.js';
+import EventLog from '../models/EventLog.js';
 const router = express.Router();
 
 router.post('/brevo', async (req, res) => {
