@@ -180,4 +180,4 @@ mongoose
   })
   .catch((err) => console.error(err));
 
-module.exports.handler = serverless(app);
+module.exports= serverless(app);
