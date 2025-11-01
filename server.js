@@ -44,7 +44,7 @@ try{
 }
 
 const whitelist = [
-  //your frontend url;
+  'https://email-frontend-lyart.vercel.app/'
 ];
 
 const corsOptions = {
