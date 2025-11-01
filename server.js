@@ -43,24 +43,24 @@ try{
   console.error("Error configuring Brevo client:", err);
 }
 
-const whitelist = [
-  // 'https://email-frontend-lyart.vercel.app/'
-];
+// const whitelist = [
+//   // 'https://email-frontend-lyart.vercel.app/'
+// ];
 
-const corsOptions = {
-  origin: function (origin, callback){
-    if (whitelist.indexOf(origin) !== -1 || !origin){
-      callback(null, true);
-    }else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true
-};
+// const corsOptions = {
+//   origin: function (origin, callback){
+//     if (whitelist.indexOf(origin) !== -1 || !origin){
+//       callback(null, true);
+//     }else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   credentials: true
+// };
 
 const app = express();
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
