@@ -106,10 +106,10 @@ app.post(
 app.get("/api/campaigns", authMiddleware, async (req, res) => {
   try {
     const campaigns = await Campaign.find().sort({ createdAt: -1 }).lean();
-    res.json(campaigns);
+    return res.json(campaigns);
   } catch (err) {
     console.error("Error fetching campaigns:", err.message);
-    res.status(500).json({ error: "Failed to fetch campaigns" });
+    return res.status(500).json({ error: "Failed to fetch campaigns" });
   }
 });
 
@@ -129,10 +129,10 @@ app.post("/api/brevo/webhook", async (req, res) => {
         }
       );
     }
-    res.status(200).send("OK");
+    return res.status(200).send("OK");
   } catch (err) {
     console.error("Webhook error:", err.message);
-    res.status(500).send("Error");
+    return res.status(500).send("Error");
   }
 });
 
@@ -140,10 +140,10 @@ app.post("/api/brevo/webhook", async (req, res) => {
 app.get("/api/notifications", async (req, res) => {
   try {
     const notifications = await Notification.find().sort({ createdAt: -1 });
-    res.json(notifications);
+    return res.json(notifications);
   } catch (err) {
     console.error("Notifications fetch error:", err.message);
-    res.status(500).send("Error fetching notifications");
+    return res.status(500).send("Error fetching notifications");
   }
 });
 

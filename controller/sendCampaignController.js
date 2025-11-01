@@ -97,9 +97,9 @@ exports.createAndSendCampaign = async (req, res, io) => {
     await notification.save();
     io.emit("new-notification", notification);
 
-    res.json({ success: true, campaign });
+    return res.json({ success: true, campaign });
   } catch (error) {
     console.error("❌ Campaign creation error:", error);
-    res.status(500).json({ success: false, error: error.message });
+    return res.status(500).json({ success: false, error: error.message });
   }
 };

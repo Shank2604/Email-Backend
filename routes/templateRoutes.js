@@ -13,7 +13,7 @@ router.post("/upload", authMiddleware, upload.single("image"), (req, res) => {
   const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${
     req.file.filename
   }`;
-  res.json({ imageUrl });
+  return res.json({ imageUrl });
 });
 
 // ✅ SAVE TEMPLATE (specific to user)
@@ -31,9 +31,9 @@ router.post("/", authMiddleware, async (req, res) => {
     });
 
     await template.save();
-    res.status(201).json({ message: "Template saved", template });
+    return res.status(201).json({ message: "Template saved", template });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 });
 
@@ -43,9 +43,9 @@ router.get("/", authMiddleware, async (req, res) => {
     const templates = await Template.find({ user: req.user.id }).sort({
       createdAt: -1,
     });
-    res.json(templates);
+    return res.json(templates);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 });
 
@@ -61,7 +61,7 @@ router.get("/:id", authMiddleware, async (req, res) => {
       return res.status(404).json({ message: "Template not found" });
     res.json(template);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 });
 

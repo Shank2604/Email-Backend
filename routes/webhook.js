@@ -39,10 +39,10 @@ router.post('/brevo', async (req, res) => {
         }
       }
     }
-    res.status(200).send('ok');
+    return res.status(200).send('ok');
   } catch (err) {
     console.error(err);
-    res.status(500).send('error');
+    return res.status(500).send('error');
   }
 });
 
