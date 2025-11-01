@@ -1,4 +1,4 @@
-const SibApiV3Sdk = require("sib-api-v3-sdk").default;
+const SibApiV3Sdk = require("sib-api-v3-sdk");
 const Campaign = require("../models/Campaign.js");
 const { buildEmailHTML } = require("../utils/buildEmailHTML"); // see earlier
 /*

@@ -12,12 +12,13 @@ const morgan = require("morgan");
 const templateRoutes = require("./routes/templateRoutes.js");
 const { buildEmailHTML } = require("./utils/buildEmailHTML.js");
 const { createAndSendCampaign } = require("./controller/sendCampaignController.js");
+const upload = require("./middleware/uploadMiddleware.js");
 
 
 const authRoutes = require("./routes/auth.js");
 const { authMiddleware, adminMiddleware } = require("./middleware/auth.js");
 
-const User = require("./models/User");
+const User = require("./models/User.js");
 const Campaign = require("./models/Campaign.js");
 const Notification = require("./models/Notification.js");
 
@@ -28,7 +29,7 @@ const Notification = require("./models/Notification.js");
 //   SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey,
 //   process.env.BREVO_API_KEY
 // );
-const SibApiV3Sdk = require("sib-api-v3-sdk").default;
+const SibApiV3Sdk = require("sib-api-v3-sdk");
 
 try{
   const brevoClient = SibApiV3Sdk.ApiClient.instance;

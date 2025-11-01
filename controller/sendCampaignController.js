@@ -2,7 +2,7 @@
 const Campaign = require("../models/Campaign");
 const Notification = require("../models/Notification");
 const { buildEmailHTML } = require("../utils/buildEmailHTML");
-const SibApiV3Sdk = require("sib-api-v3-sdk").default;
+const SibApiV3Sdk = require("sib-api-v3-sdk");
 
 
 // const SibApiV3Sdk = require("@sendinblue/client");
